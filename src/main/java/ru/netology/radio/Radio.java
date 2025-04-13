@@ -1,71 +1,82 @@
 package ru.netology.radio;
 
 public class Radio {
-    private int currentStation; // номер станции 0-9
-    private int currentVolume;  // уровень звука 0-100
+    private int currentStation; // Текущая радиостанция
+    private int numberOfStations; // Количество радиостанций
+    private int volume;          // Уровень громкости звука
+
+    public Radio() {
+        this.numberOfStations = 10;
+        this.currentStation = 0;
+        this.volume = 0; // По умолчанию громкость 0
+    }
+
+    public Radio(int numberOfStations) {
+        this.numberOfStations = numberOfStations;
+        this.currentStation = 0;
+        this.volume = 0; // По умолчанию громкость 0
+    }
 
     // Получение текущей станции
     public int getCurrentStation() {
         return currentStation;
     }
 
+    public int getNumberOfStations() {
+        return numberOfStations;
+    }
+
+
     // Установка текущей станции
     public void setCurrentStation(int currentStation) {
-        if (currentStation < 0) {
-            return;
+        if (currentStation >= 0 && currentStation < numberOfStations) {
+            this.currentStation = currentStation;
         }
-        if (currentStation > 9){
-            return;
-        }
-        this.currentStation = currentStation;
     }
+
 
     // Переключение на следующую станцию
     public void nextStation() {
-        if (currentStation == 9) {
-            this.currentStation = 0;
+        if (currentStation == numberOfStations - 1) {
+            currentStation = 0;
         } else {
-            this.currentStation++;
+            currentStation++;
         }
     }
 
     // Переключение на предыдущую станцию
     public void prevStation() {
         if (currentStation == 0) {
-            this.currentStation = 9;
+            currentStation = numberOfStations - 1;
         } else {
-            this.currentStation--;
+            currentStation--;
         }
     }
 
 
     // Получение текущего уровня громкости
-    public int getCurrentVolume() {
-        return currentVolume;
+    public int getVolume() {
+        return volume;
     }
 
     // Установка громкости
-    public void setCurrentVolume(int currentVolume) {
-        if (currentVolume < 0) {
-            return;
+    public void setVolume(int volume) {
+        if (volume >= 0 && volume <= 100) {
+            this.volume = volume;
         }
-        if (currentVolume > 100){
-            return;
-        }
-        this.currentVolume = currentVolume;
     }
 
     // Увеличение громкости на 1
     public void increaseVolume() {
-        if (currentVolume < 100) {
-            currentVolume = currentVolume + 1;
+        if (volume < 100) {
+            volume++;
         }
     }
 
     // Уменьшение громкости на 1
     public void decreaseVolume() {
-        if (currentVolume > 0) {
-            currentVolume = currentVolume - 1;
+        if (volume > 0) {
+            volume--;
         }
     }
 }
